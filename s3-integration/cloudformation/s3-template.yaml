@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Template for S3 resources
+Parameters:
+  BucketName:
+    Type: String
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
+      AccessControl: Private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+  S3User:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: s3-bucket-user
+      Path: /
+      Policies:
+        - PolicyName: access-s3-bucket-policy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:ListBucket
+                  - s3:GetBucketLocation
+                Resource: !Join
+                  - ''
+                  - - 'arn:aws:s3:::'
+                    - !Ref S3Bucket
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:DeleteObject
+                Resource: !Join
+                  - ''
+                  - - 'arn:aws:s3:::'
+                    - !Ref S3Bucket
+                    - /*
+  S3UserAccessKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName: !Ref S3User
+
+Outputs:
+  BucketName:
+    Description: S3 Bucket
+    Value:
+      !Ref S3Bucket
+  S3User:
+    Description: S3 User
+    Value: !Ref S3User
+  S3UserAccessKeyId:
+    Description: S3 User AccessKey
+    Value: !Ref S3UserAccessKey
+  S3UserSecretAccessKey:
+    Description: S3 User AccessKey
+    Value: !GetAtt
+      - S3UserAccessKey
+      - SecretAccessKey
