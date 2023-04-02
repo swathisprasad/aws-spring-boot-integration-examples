@@ -11,7 +11,7 @@
 	<groupId>com.swathiprasad.s3integration</groupId>
 	<artifactId>s3-integration</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>aws-integration</name>
+	<name>s3-integration</name>
 	<description>Demo project for Spring Boot and S3 integration</description>
 	<properties>
 		<java.version>17</java.version>

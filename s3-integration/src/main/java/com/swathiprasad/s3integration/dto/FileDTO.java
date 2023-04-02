@@ -1,4 +1,4 @@
-package com.swathiprasad.awsintegration.dto;
+package com.swathiprasad.s3integration.dto;
 
 import lombok.Data;
 

@@ -1,10 +1,10 @@
-package com.swathiprasad.awsintegration.service;
+package com.swathiprasad.s3integration.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-import com.swathiprasad.awsintegration.dto.FileDTO;
+import com.swathiprasad.s3integration.dto.FileDTO;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;

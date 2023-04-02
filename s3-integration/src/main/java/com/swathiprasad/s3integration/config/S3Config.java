@@ -1,4 +1,4 @@
-package com.swathiprasad.awsintegration.config;
+package com.swathiprasad.s3integration.config;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;

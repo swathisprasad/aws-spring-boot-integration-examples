@@ -1,7 +1,7 @@
-package com.swathiprasad.awsintegration.controller;
+package com.swathiprasad.s3integration.controller;
 
-import com.swathiprasad.awsintegration.dto.FileDTO;
-import com.swathiprasad.awsintegration.service.FileService;
+import com.swathiprasad.s3integration.dto.FileDTO;
+import com.swathiprasad.s3integration.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
