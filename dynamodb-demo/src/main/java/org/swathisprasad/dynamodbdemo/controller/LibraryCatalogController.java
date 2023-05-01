@@ -14,7 +14,6 @@ public class LibraryCatalogController {
 
     private final LibraryCatalogService libraryCatalogService;
 
-    @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping("/")
     public ResponseEntity<Void> saveLibraryCatalog(@RequestBody LibraryCatalog libraryCatalog) {
         libraryCatalogService.save(libraryCatalog);
