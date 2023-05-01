@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Template for S3 resources
+
+Resources:
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: LibraryCatalog
+      AttributeDefinitions:
+        - AttributeName: author
+          AttributeType: S
+        - AttributeName: topic
+          AttributeType: S
+      KeySchema:
+        - AttributeName: author
+          KeyType: HASH
+        - AttributeName: topic
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+  S3User:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: dynamodb-user
+      Path: /
+      Policies:
+        - PolicyName: access-dynamodb-policy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:BatchGetItem
+                  - dynamodb:PutItem
+                  - dynamodb:UpdateItem
+                  - dynamodb:DeleteItem
+                  - dynamodb:Query
+                Resource: !GetAtt DynamoDBTable.Arn
+  S3UserAccessKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName: !Ref S3User
+
+Outputs:
+  S3User:
+    Description: S3 User
+    Value: !Ref S3User
+  S3UserAccessKeyId:
+    Description: S3 User AccessKey
+    Value: !Ref S3UserAccessKey
+  S3UserSecretAccessKey:
+    Description: S3 User AccessKey
+    Value: !GetAtt
+      - S3UserAccessKey
+      - SecretAccessKey
